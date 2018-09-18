@@ -18,14 +18,15 @@ AWESOMENESS = [
 def start_here():
     """Home page."""
 
-    return "<!doctype html><html>Hi! This is the home page.</html>"
+    return "<!doctype html><html>Hi! This is the home page.<a href='/hello'>Hola page !</a></html>"
 
 
 @app.route('/hello')
 def say_hello():
     """Say hello and prompt for user's name."""
 
-    return """
+    # first part of HTML
+    top_part = """
     <!doctype html>
     <html>
       <head>
@@ -34,12 +35,30 @@ def say_hello():
       <body>
         <h1>Hi There!</h1>
         <form action="/greet">
-          What's your name? <input type="text" name="person">
+          What's your name? <input type="text" name="person"><br>
+          How awesome are you?
+          <select name="compliment_choice">
+    """
+
+    # last part of HTML
+    last_part = """
+          </select>
+          <br>
           <input type="submit" value="Submit">
         </form>
       </body>
     </html>
     """
+
+    # generate middle part of HTML
+    options = []
+    for compliment in AWESOMENESS:
+        option_string = "<option value='terrific'>{}</option>".format(compliment)
+        options.append(option_string)
+
+    middle_part = ' '.join(options)
+
+    return top_part + middle_part + last_part 
 
 
 @app.route('/greet')
