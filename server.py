@@ -53,7 +53,7 @@ def say_hello():
     # generate middle part of HTML
     options = []
     for compliment in AWESOMENESS:
-        option_string = "<option value='terrific'>{}</option>".format(compliment)
+        option_string = "<option value='{}'>{}</option>".format(compliment, compliment)
         options.append(option_string)
 
     middle_part = ' '.join(options)
@@ -67,7 +67,8 @@ def greet_person():
 
     player = request.args.get("person")
 
-    compliment = choice(AWESOMENESS)
+    #compliment = choice(AWESOMENESS)
+    compliment = request.args.get("compliment_choice")
 
     return """
     <!doctype html>
